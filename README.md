@@ -35,3 +35,6 @@ The webapi can be found in another repo (coming soon)
 ## Changes to make for use by another faction
 Want to make this work for another faction, all you need to change here are 2 instances of 'IDA-BGS' and 2 instances of the server url to push data to (https://ida-bgs.ztik.nl/api.php)  
 One more change will be required for the webapi, which does the filtering of systems where the faction has a presence or not
+
+## Disclaimer
+This plugin is still under construction, ~~bugs~~ new features WILL appear unexpectedly.  
