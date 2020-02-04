@@ -12,14 +12,20 @@ There is an extra row in the main window of EDMC, labeled IDA-BGS.
 This row can have 4 different values:  
 - Idle  
   Not doing anything, waiting for FSDjump event to be triggered  
+  Orange or black text, depending on EDMC Theme  
+
 - Success (no data sent)  
   Just processed FSDjump event, but destination system does not contain our faction  
+  Blue text  
+
 - Success (data sent)  
   Just processed FSDjump event, our faction is present here, data sent without errors  
+  Green text  
+
 - Fail: error code - short error message  
   could be many things, the error code and short error message will be a hint/clue  
   The real error can be found in EDMC log file, usually located in `%TMP%/EDMarketConnector.log`  
-
+  Red text  
 
 ## What it does:
 Whenever a user jumps from one system to another, upon landing in the destination system, an event is created in the ED journal file.  
