@@ -78,7 +78,8 @@ def plugin_app(parent):
     Create a pair of TK widgets for the EDMC main window
     """
     label = tk.Label(parent, text="IDA BGS:")
-    this.status = tk.Label(parent, text="Idle", foreground="white")
+    orig_color = label.cget("foreground")
+    this.status = tk.Label(parent, text="Idle")
     return (label, this.status)
 
 def journal_entry(cmdr, is_beta, system, station, entry, state):
@@ -104,7 +105,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
             if r.status_code == 201:
                 sys.stderr.write("Status: 201\n")
                 this.status['text'] = "Success: no data sent"
-                this.status["foreground"] = "white"
+                this.status["foreground"] = "blue"
                 t = threading.Timer(10.0, clearstatus)
             else:
                 data = json.loads(r.text)
@@ -117,4 +118,4 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
 
 def clearstatus():
     this.status['text'] = "Idle"
-    this.status["foreground"] = "white"
+    this.status["foreground"] = "SystemButtonText"
