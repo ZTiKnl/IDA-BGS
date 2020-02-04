@@ -10,13 +10,13 @@ An EDMC plugin that gathers system/faction data for specific systems and sends J
 
 There is an extra row in the main window of EDMC, labeled IDA-BGS.  
 This row can have 4 different values:  
--Idle  
+- Idle  
   Not doing anything, waiting for FSDjump event to be triggered  
--Success (no data sent)  
+- Success (no data sent)  
   Just processed FSDjump event, but destination system does not contain our faction  
--Success (data sent)  
+- Success (data sent)  
   Just processed FSDjump event, our faction is present here, data sent without errors  
--Fail: error code - short error message  
+- Fail: error code - short error message  
   could be many things, the error code and short error message will be a hint/clue  
   The real error can be found in EDMC log file, usually located in `%TMP%/EDMarketConnector.log`  
 
