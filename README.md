@@ -10,7 +10,9 @@ An EDMC plugin that gathers system/faction data for specific systems and sends J
 
 # What it does:
 Whenever a user jumps from one system to another, upon landing in the destination system, an event is created in the ED journal file.
+
 This plugin reads that event (FSDjump), and ONLY that event, gathers system/faction data, and pushes it to a webapi.
+
 The webapi can be found in another repo (coming soon)
 
 
