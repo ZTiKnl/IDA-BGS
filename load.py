@@ -79,7 +79,7 @@ def plugin_app(parent):
     """
     label = tk.Label(parent, text="IDA BGS:")
 
-    this.status = tk.Label(parent, text="Idle", foreground="SystemButtonText")
+    this.status = tk.Label(parent, text="Idle")
 
     return (label, this.status)
 
@@ -100,21 +100,19 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         if r.status_code == 200:
             sys.stderr.write("Status: 200\n")
             this.status['text'] = "Success: data sent"
-            t = threading.Timer(10.0, clearstatus)
+            t = threading.Timer(5.0, clearstatus)
         else:
             if r.status_code == 201:
                 sys.stderr.write("Status: 201\n")
                 this.status['text'] = "Success: no data sent"
-                t = threading.Timer(10.0, clearstatus)
+                t = threading.Timer(5.0, clearstatus)
             else:
                 data = json.loads(r.text)
                 sys.stderr.write("Status: " + str(r.status_code) + ": " + str(data['message']) + "\n")
                 sys.stderr.write("Error: " + str(data['error']) + "\n")
                 this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
-                this.status['foreground'] = "red"
-                t = threading.Timer(30.0, clearstatus)
+                t = threading.Timer(10.0, clearstatus)
         t.start()
 
 def clearstatus():
     this.status['text'] = "Idle"
-    this.status['foreground'] = "SystemButtonText"
