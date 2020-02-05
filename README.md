@@ -2,7 +2,7 @@
 An EDMC plugin that gathers system/faction data for specific systems and sends JSON formatted data to webapi
 
 ## How to use:
-1. Clone the repo to the EDMC plugin folder, or download and unzip to the EDMC plugin folder
+1. Clone the repo to the EDMC plugin folder, or download and unzip to the EDMC plugin folder  
    (default: `c:\Users\%USERNAME%\AppData\Local\EDMarketConnector\plugins`)
 2. Request API key on webinterface
 3. Start up EDMC
@@ -38,3 +38,9 @@ One more change will be required for the webapi, which does the filtering of sys
 
 ## Disclaimer
 This plugin is still under construction, ~~bugs~~ new features WILL appear unexpectedly.  
+There is no license on this code, feel free to use it as you see fit.  
+Patches are always welcome.  
+
+## Thanks
+HammerPiano, wouldnt have gotten the plugin working so fast without your advice  
+Everyone at EDCD: Community Developers Discord channel  
