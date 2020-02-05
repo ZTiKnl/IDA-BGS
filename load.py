@@ -119,4 +119,5 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         t.start()
 
 def clearstatus():
-    this.status['text'] = "SystemButtonText"
+    this.status['text'] = "Idle"
+    this.status['foreground'] = "SystemButtonText"
