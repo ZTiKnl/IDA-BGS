@@ -2,7 +2,7 @@
 An EDMC plugin that gathers system/faction data for specific systems and sends JSON formatted data to webapi
 
 ## How to use:
-1. Clone the repo to the EDMC plugin folder, or download the load.py file to a new folder inside the EDMC plugin folder
+1. Clone the repo to the EDMC plugin folder, or download and unzip to the EDMC plugin folder
    (default: `c:\Users\%USERNAME%\AppData\Local\EDMarketConnector\plugins`)
 2. Request API key on webinterface
 3. Start up EDMC
