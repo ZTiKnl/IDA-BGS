@@ -16,11 +16,11 @@ This row can have 4 different values:
 
 - Success (no data sent)  
   Just processed FSDjump event, but destination system does not contain our faction  
-  Blue text  
+  Orange or black text, depending on EDMC Theme  
 
 - Success (data sent)  
   Just processed FSDjump event, our faction is present here, data sent without errors  
-  Green text  
+  Orange or black text, depending on EDMC Theme  
 
 - Fail: error code - short error message  
   could be many things, the error code and short error message will be a hint/clue  
