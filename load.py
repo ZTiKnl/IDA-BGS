@@ -81,9 +81,6 @@ def plugin_app(parent):
 
     this.status = tk.Label(parent, text="Idle", foreground="SystemButtonText")
 
-    orig_color = label.cget("highlightcolor")
-    sys.stderr.write("color: " + str(orig_color) + "\n")
-
     return (label, this.status)
 
 def journal_entry(cmdr, is_beta, system, station, entry, state):
