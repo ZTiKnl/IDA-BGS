@@ -78,8 +78,12 @@ def plugin_app(parent):
     Create a pair of TK widgets for the EDMC main window
     """
     label = tk.Label(parent, text="IDA BGS:")
-    orig_color = label.cget("foreground")
-    this.status = tk.Label(parent, text="Idle")
+
+    this.status = tk.Label(parent, text="Idle", foreground="SystemButtonText")
+
+    orig_color = label.cget("highlightcolor")
+    sys.stderr.write("color: " + str(orig_color) + "\n")
+
     return (label, this.status)
 
 def journal_entry(cmdr, is_beta, system, station, entry, state):
@@ -99,23 +103,20 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         if r.status_code == 200:
             sys.stderr.write("Status: 200\n")
             this.status['text'] = "Success: data sent"
-            this.status["foreground"] = "green"
             t = threading.Timer(10.0, clearstatus)
         else:
             if r.status_code == 201:
                 sys.stderr.write("Status: 201\n")
                 this.status['text'] = "Success: no data sent"
-                this.status["foreground"] = "blue"
                 t = threading.Timer(10.0, clearstatus)
             else:
                 data = json.loads(r.text)
                 sys.stderr.write("Status: " + str(r.status_code) + ": " + str(data['message']) + "\n")
                 sys.stderr.write("Error: " + str(data['error']) + "\n")
                 this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
-                this.status["foreground"] = "red"
+                this.status['foreground'] = "red"
                 t = threading.Timer(30.0, clearstatus)
         t.start()
 
 def clearstatus():
-    this.status['text'] = "Idle"
-    this.status["foreground"] = "SystemButtonText"
+    this.status['text'] = "SystemButtonText"
