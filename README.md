@@ -42,5 +42,5 @@ There is no license on this code, feel free to use it as you see fit.
 Patches are always welcome.  
 
 ## Thanks
-HammerPiano, wouldnt have gotten the plugin working so fast without your advice  
-Everyone at EDCD: Community Developers Discord channel  
+- HammerPiano, wouldnt have gotten the plugin working so fast without your advice  
+- Everyone at EDCD: Community Developers Discord channel  
