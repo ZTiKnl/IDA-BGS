@@ -29,7 +29,7 @@ This row can have 4 different values:
   The real error can be found in EDMC log file, usually located in `%TMP%/EDMarketConnector.log`  
 
 ## Changes to make for use by another faction
-Want to make this work for another faction, all you need to change here are 2 instances of 'IDA-BGS' and 2 instances of the server url to push data to (https://ida-bgs.ztik.nl/api.php)  
+Want to make this work for another faction, all you need to change here are 2 instances of 'IDA-BGS' and 2 instances of the server url to push data to `https://ida-bgs.ztik.nl/api.php`  
 One more change will be required for the webapi, which does the filtering of systems where the faction has a presence or not
 
 ## Disclaimer
