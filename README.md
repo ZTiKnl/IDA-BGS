@@ -4,7 +4,7 @@ An EDMC plugin that gathers system/faction data for specific systems and sends J
 ## What it does:
 Whenever a user jumps from one system to another, upon landing in the destination system, an event is created in the ED journal file.  
 This plugin reads this event (FSDjump), and ONLY this event, gathers system/faction data, and pushes JSON formatted data to a webapi.  
-The webapi can be found in another repo (coming soon)  
+[The webapi can be found here](https://github.com/ZTiKnl/IDA-BGS-API)    
 
 ## How to use:
 1. Clone the repo to the EDMC plugin folder, or download and unzip to the EDMC plugin folder  
