@@ -101,7 +101,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
 
         entry['key'] = this.apikey.get()
 
-        this.status['text'] = "Anonimizing data..."
+        this.status['text'] = "Anonimizing BGS data..."
         entry['JumpDist'] = ''
         entry['FuelLevel'] = ''
         entry['BodyID'] = ''
@@ -109,41 +109,71 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         entry['BodyType'] = ''
         entry['FuelUsed'] = ''
 
-        this.status['text'] = "Sending data..."
+        this.status['text'] = "Sending BGS data..."
         url = "https://ida-bgs.ztik.nl/api.php"
         r = requests.post(url, json=entry)
         if r.status_code == 200:
             sys.stderr.write("Status: 200\n")
-            this.status['text'] = "Success: data accepted"
+            this.status['text'] = "Success: BGS data sent"
             t = threading.Timer(5.0, clearstatus)
         else:
             if r.status_code == 201:
                 sys.stderr.write("Status: 201\n")
-                this.status['text'] = "Success: data not applicable"
+                this.status['text'] = "Success: BGS data not applicable"
                 t = threading.Timer(5.0, clearstatus)
             else:
-                data = json.loads(r.text)
-                sys.stderr.write("Status: " + str(r.status_code) + ": " + str(data['message']) + "\n")
-                sys.stderr.write("Error: " + str(data['error']) + "\n")
-                this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
-                t = threading.Timer(10.0, clearstatus)
+                if r.status_code == 202:
+                    sys.stderr.write("Status: 202\n")
+                    this.status['text'] = "Success: API not ready"
+                    t = threading.Timer(5.0, clearstatus)
+                else:
+                    data = json.loads(r.text)
+                    sys.stderr.write("Status BGS: " + str(r.status_code) + ": " + str(data['message']) + "\n")
+                    sys.stderr.write("Error BGS: " + str(data['error']) + "\n")
+                    this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
+                    t = threading.Timer(10.0, clearstatus)
         t.start()
 
-    elif entry['event'] == 'MissionComplete':
+    elif entry['event'] == 'MissionCompleted':
         # We completed a mission!
         this.apikey = tk.StringVar(value=config.get("APIkey"))
 
         entry['key'] = this.apikey.get()
 
-        this.status['text'] = "Anonimizing data..."
-        entry['JumpDist'] = ''
-        entry['FuelLevel'] = ''
-        entry['BodyID'] = ''
-        entry['Body'] = ''
-        entry['BodyType'] = ''
-        entry['FuelUsed'] = ''
+        this.status['text'] = "Anonimizing INF data..."
+        entry['Commodity'] = ''
+        entry['Count'] = ''
+        entry['Reward'] = ''
+        entry['Donation'] = ''
+        entry['Donated'] = ''
+        entry['PermitsAwarded'] = ''
+        entry['CommodityReward'] = ''
+        entry['MaterialsReward'] = ''
 
-
+        this.status['text'] = "Sending INF data..."
+        url = "https://ida-bgs.ztik.nl/api.php"
+        r = requests.post(url, json=entry)
+        if r.status_code == 200:
+            sys.stderr.write("Status: 200\n")
+            this.status['text'] = "Success: INF data sent"
+            t = threading.Timer(5.0, clearstatus)
+        else:
+            if r.status_code == 201:
+                sys.stderr.write("Status: 201\n")
+                this.status['text'] = "Success: INF data not applicable"
+                t = threading.Timer(5.0, clearstatus)
+            else:
+                if r.status_code == 202:
+                    sys.stderr.write("Status: 202\n")
+                    this.status['text'] = "Success: API not ready"
+                    t = threading.Timer(5.0, clearstatus)
+                else:
+                    data = json.loads(r.text)
+                    sys.stderr.write("Status INF: " + str(r.status_code) + ": " + str(data['message']) + "\n")
+                    sys.stderr.write("Error INF: " + str(data['error']) + "\n")
+                    this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
+                    t = threading.Timer(10.0, clearstatus)
+        t.start()
 
 
 
