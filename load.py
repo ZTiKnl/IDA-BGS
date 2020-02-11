@@ -9,11 +9,11 @@ from config import config
 this = sys.modules[__name__]
 
 def plugin_start(plugin_dir):
-   """
-   Load this plugin into EDMC
-   """
-   print "IDA-BGS loaded! My plugin folder is {}".format(plugin_dir.encode("utf-8"))
-   return "IDA-BGS"
+    """
+    Load this plugin into EDMC
+    """
+    print "IDA-BGS loaded! My plugin folder is {}".format(plugin_dir.encode("utf-8"))
+    return "IDA-BGS"
 
 def plugin_stop():
     """
@@ -22,63 +22,70 @@ def plugin_stop():
     print "Closing down"
 
 def plugin_prefs(parent, cmdr, is_beta):
-   """
-   Return a TK Frame for adding to the EDMC settings dialog.
-   """
-   this.apikey = tk.StringVar(value=config.get("APIkey"))
+    """
+    Return a TK Frame for adding to the EDMC settings dialog.
+    """
+    this.apikey = tk.StringVar(value=config.get("APIkey"))
+    this.approvedatatransfer = tk.IntVar(value=config.getint("ADT"))
 
-   frame = nb.Frame(parent)
+    frame = nb.Frame(parent)
 
-   plugin_label = nb.Label(frame, text="IDA-BGS EDMC plugin v0.11")
-   plugin_label.grid(padx=10, row=0, column=0, sticky=tk.W)
+    plugin_label = nb.Label(frame, text="IDA-BGS EDMC plugin v0.32")
+    plugin_label.grid(padx=10, row=0, column=0, columnspan=2, sticky=tk.W)
 
-   empty_label = nb.Label(frame, text="")
-   empty_label.grid(padx=10, row=1, column=0, sticky=tk.W)
+    empty_label = nb.Label(frame, text="")
+    empty_label.grid(padx=10, row=1, column=0, columnspan=2, sticky=tk.W)
 
-   apikey_label = nb.Label(frame, text="Enter your API key to authorize data transfers")
-   apikey_label.grid(padx=10, row=2, column=0, sticky=tk.W)
+    apikey_label = nb.Label(frame, text="Enter your API key to authorize data transfers")
+    apikey_label.grid(padx=10, row=2, column=0, sticky=tk.W)
 
-   apikey_entry = nb.Entry(frame, textvariable=this.apikey)
-   apikey_entry.grid(padx=10, row=2, column=1, columnspan=2, sticky=tk.EW)
+    apikey_entry = nb.Entry(frame, textvariable=this.apikey)
+    apikey_entry.grid(padx=10, row=2, column=1, sticky=tk.EW)
 
-   empty_label = nb.Label(frame, text="")
-   empty_label.grid(padx=10, row=3, column=0, sticky=tk.W)
+    data_label = nb.Label(frame, text="Each data package is between 100KB - 500KB, only 1 data package is sent per FSD jump")
+    data_label.grid(padx=10, row=3, column=0, columnspan=2, sticky=tk.W)
 
-   secure_label = nb.Label(frame, text="All data is sent over a secure connection (SSL)")
-   secure_label.grid(padx=10, row=4, column=0, sticky=tk.W)
+    empty_label = nb.Label(frame, text="")
+    empty_label.grid(padx=10, row=4, column=0, columnspan=2, sticky=tk.W)
 
-   empty_label = nb.Label(frame, text="")
-   empty_label.grid(padx=10, row=5, column=0, sticky=tk.W)
+    optin_entry = nb.Checkbutton(frame, text=_('Send INF gains for IDA'), variable=this.approvedatatransfer)
+    optin_entry.grid(padx=10, row=5, column=0, columnspan=2, sticky=tk.EW)
 
-   data_label = nb.Label(frame, text="The only data sent is BGS faction data along with basic system details and a timestamp upon jumping into a system")
-   data_label.grid(padx=10, row=6, column=0, sticky=tk.W)
+    data_label = nb.Label(frame, text="Each data package is between 20KB - 100KB, 1 data package is sent per INF gain")
+    data_label.grid(padx=10, row=6, column=0, columnspan=2, sticky=tk.W)
 
-   data_label = nb.Label(frame, text="It also sends data about systems where IDA does NOT have a presence, but this data is ignored by the API")
-   data_label.grid(padx=10, row=7, column=0, sticky=tk.W)
+    empty_label = nb.Label(frame, text="")
+    empty_label.grid(padx=10, row=7, column=0, columnspan=2, sticky=tk.W)
 
-   data_label = nb.Label(frame, text="Each data package is between 100KB - 500KB, only 1 data package is sent per FSD jump")
-   data_label.grid(padx=10, row=8, column=0, sticky=tk.W)
+    data_label = nb.Label(frame, text="The only data sent is BGS faction data along with basic system details and a timestamp")
+    data_label.grid(padx=10, row=8, column=0, columnspan=2, sticky=tk.W)
 
-   empty_label = nb.Label(frame, text="")
-   empty_label.grid(padx=10, row=9, column=0, sticky=tk.W)
+    data_label = nb.Label(frame, text="It also sends data about systems where IDA does NOT have a presence, but this data is ignored by the API")
+    data_label.grid(padx=10, row=9, column=0, columnspan=2, sticky=tk.W)
 
-   thirdparty_label = nb.Label(frame, text="No data will be sold to third parties, and there are no tracking mechanisms trying to follow you")
-   thirdparty_label.grid(padx=10, row=10, column=0, sticky=tk.W)
+    empty_label = nb.Label(frame, text="")
+    empty_label.grid(padx=10, row=10, column=0, columnspan=2, sticky=tk.W)
 
-   return frame
+    anonymous_label = nb.Label(frame, text="All data is anonimized before being sent over a secure connection (SSL)")
+    anonymous_label.grid(padx=10, row=11, column=0, columnspan=2, sticky=tk.W)
+
+    thirdparty_label = nb.Label(frame, text="No data will be sold to third parties, and there are no tracking mechanisms trying to follow you")
+    thirdparty_label.grid(padx=10, row=12, column=0, columnspan=2, sticky=tk.W)
+
+    return frame
 
 def prefs_changed(cmdr, is_beta):
-   """
-   Save settings.
-   """
-   config.set('APIkey', this.apikey.get())
+    """
+    Save settings.
+    """
+    config.set('APIkey', this.apikey.get())
+    config.set('ADT', this.approvedatatransfer.get())
 
 def plugin_app(parent):
     """
     Create a pair of TK widgets for the EDMC main window
     """
     label = tk.Label(parent, text="IDA BGS:")
-
     this.status = tk.Label(parent, text="Idle")
 
     return (label, this.status)
@@ -94,17 +101,25 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
 
         entry['key'] = this.apikey.get()
 
+        this.status['text'] = "Anonimizing data..."
+        entry['JumpDist'] = ''
+        entry['FuelLevel'] = ''
+        entry['BodyID'] = ''
+        entry['Body'] = ''
+        entry['BodyType'] = ''
+        entry['FuelUsed'] = ''
+
         this.status['text'] = "Sending data..."
         url = "https://ida-bgs.ztik.nl/api.php"
         r = requests.post(url, json=entry)
         if r.status_code == 200:
             sys.stderr.write("Status: 200\n")
-            this.status['text'] = "Success: data sent"
+            this.status['text'] = "Success: data accepted"
             t = threading.Timer(5.0, clearstatus)
         else:
             if r.status_code == 201:
                 sys.stderr.write("Status: 201\n")
-                this.status['text'] = "Success: no data sent"
+                this.status['text'] = "Success: data not applicable"
                 t = threading.Timer(5.0, clearstatus)
             else:
                 data = json.loads(r.text)
@@ -113,6 +128,28 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
                 this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
                 t = threading.Timer(10.0, clearstatus)
         t.start()
+
+    elif entry['event'] == 'MissionComplete':
+        # We completed a mission!
+        this.apikey = tk.StringVar(value=config.get("APIkey"))
+
+        entry['key'] = this.apikey.get()
+
+        this.status['text'] = "Anonimizing data..."
+        entry['JumpDist'] = ''
+        entry['FuelLevel'] = ''
+        entry['BodyID'] = ''
+        entry['Body'] = ''
+        entry['BodyType'] = ''
+        entry['FuelUsed'] = ''
+
+
+
+
+
+
+
+
 
 def clearstatus():
     this.status['text'] = "Idle"
