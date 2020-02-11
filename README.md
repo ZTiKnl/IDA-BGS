@@ -6,16 +6,17 @@ Whenever a user jumps from one system to another, upon landing in the destinatio
 This plugin reads this event (FSDjump), and ONLY this event, gathers system/faction data, and pushes JSON formatted data to a webapi.  
 [The webapi can be found here](https://github.com/ZTiKnl/IDA-BGS-API)  
 
-## What it can do:  
+## What else can it do:  
 Whenever a user completes a mission, it can gather data about INF gains and push JSON formatted data to a webapi.  
 This is an *optional* feature, OPT-IN, which means users do not participate, unless they manually place a checkmark in the settings tab.  
 
-## How to use:
+## How to use:  
 1. Clone the repo to the EDMC plugin folder, or download and unzip to the EDMC plugin folder  
-   (default: `c:\Users\%USERNAME%\AppData\Local\EDMarketConnector\plugins`)
-2. Request API key on webinterface
-3. Start up EDMC
-4. Insert API key into plugin by going to File -> Settings, tab IDA-BGS, enter/paste the key, and hit OK
+   (default: `c:\Users\%USERNAME%\AppData\Local\EDMarketConnector\plugins`)  
+2. Request API key on webinterface  
+3. Start up EDMC  
+4. Insert API key into plugin by going to File -> Settings, tab IDA-BGS, enter/paste the key, and hit OK  
+5. Optional: add checkmark to approve INF data packages  
 
 There is an extra row in the main window of EDMC, labeled IDA-BGS.  
 This row can have 4 different values:  
