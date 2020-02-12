@@ -30,7 +30,7 @@ def plugin_prefs(parent, cmdr, is_beta):
 
     frame = nb.Frame(parent)
 
-    plugin_label = nb.Label(frame, text="IDA-BGS EDMC plugin v0.32")
+    plugin_label = nb.Label(frame, text="IDA-BGS EDMC plugin v0.40")
     plugin_label.grid(padx=10, row=0, column=0, columnspan=2, sticky=tk.W)
 
     empty_label = nb.Label(frame, text="")
@@ -92,7 +92,7 @@ def plugin_app(parent):
 
 def journal_entry(cmdr, is_beta, system, station, entry, state):
     """
-    Evaluate data and transfer to https://ida-bgs.ztik.nl/api.php
+    Evaluate data and transfer to https://ida-bgs.ztik.nl/api/input-api
     """
     if entry['event'] == 'FSDJump':
         # We arrived at a new system!
@@ -110,7 +110,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         entry['FuelUsed'] = ''
 
         this.status['text'] = "Sending BGS data..."
-        url = "https://ida-bgs.ztik.nl/api.php"
+        url = "https://ida-bgs.ztik.nl/api/input-api"
         r = requests.post(url, json=entry)
         if r.status_code == 200:
             sys.stderr.write("Status: 200\n")
@@ -152,7 +152,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
             entry['MaterialsReward'] = ''
 
             this.status['text'] = "Sending INF data..."
-            url = "https://ida-bgs.ztik.nl/api.php"
+            url = "https://ida-bgs.ztik.nl/api/input-api"
             r = requests.post(url, json=entry)
             if r.status_code == 200:
                 sys.stderr.write("Status: 200\n")
