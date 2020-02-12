@@ -6,13 +6,12 @@ Version 0.40
 
 ## What it does:  
 Whenever a user jumps from one system to another, upon landing in the destination system, an event is created in the ED journal file.  
-This plugin reads this event (FSDjump), and ONLY this event, gathers system/faction data, and pushes JSON formatted data to the IDA-BGS API.  
-  [The API can be found here](https://github.com/ZTiKnl/IDA-BGS-API)  
-Data sent to the API can be displayed by the FrontEnd website  
-  [The FrontEnd website can be found here](https://github.com/ZTiKnl/IDA-BGS-FrontEnd)  
+This plugin reads this event (FSDjump), and ONLY this event, gathers system/faction data, and pushes JSON formatted data to the [IDA-BGS API](https://github.com/ZTiKnl/IDA-BGS-API).  
+Data sent to the API can be displayed by the [FrontEnd website](https://github.com/ZTiKnl/IDA-BGS-FrontEnd)  
 
 ## What else can it do:  
-Whenever a user completes a mission, it can gather data about INF gains and push JSON formatted data to a webapi.  
+Whenever a user completes a mission, an event is created in the ED journal file.  
+If enabled, this plugin reads this event (MissionCompleted), and ONLY this event, gathers INF data, and pushes JSON formatted data to the [IDA-BGS API](https://github.com/ZTiKnl/IDA-BGS-API).  
 This is an *optional* feature, OPT-IN, which means users do not participate, unless they manually place a checkmark in the settings tab.  
 
 ## How to use:  
