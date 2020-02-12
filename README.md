@@ -1,10 +1,15 @@
 # IDA-BGS
 An EDMC plugin that gathers system/faction data for specific systems and sends JSON formatted data to webapi
 
-## What it does:
+## Version  
+Version 0.40  
+
+## What it does:  
 Whenever a user jumps from one system to another, upon landing in the destination system, an event is created in the ED journal file.  
-This plugin reads this event (FSDjump), and ONLY this event, gathers system/faction data, and pushes JSON formatted data to a webapi.  
-[The webapi can be found here](https://github.com/ZTiKnl/IDA-BGS-API)  
+This plugin reads this event (FSDjump), and ONLY this event, gathers system/faction data, and pushes JSON formatted data to the IDA-BGS API.  
+  [The API can be found here](https://github.com/ZTiKnl/IDA-BGS-API)  
+Data sent to the API can be displayed by the FrontEnd website  
+  [The FrontEnd website can be found here](https://github.com/ZTiKnl/IDA-BGS-FrontEnd)  
 
 ## What else can it do:  
 Whenever a user completes a mission, it can gather data about INF gains and push JSON formatted data to a webapi.  
@@ -19,17 +24,20 @@ This is an *optional* feature, OPT-IN, which means users do not participate, unl
 5. Optional: add checkmark to approve INF data packages  
 
 There is an extra row in the main window of EDMC, labeled IDA-BGS.  
-This row can have 4 different values:  
+This row can have 5 different values:  
 - Idle  
   Not doing anything, waiting for FSDjump event to be triggered  
 
-- Success (no data sent)  
+- Success: (no BGS/INF data sent)  
   Just processed FSDjump event, but destination system does not contain our faction  
   Just processed MissionCompleted event, but the target and recipient are not our faction  
 
-- Success (data sent)  
+- Success: (BGS/INF data sent)  
   Just processed FSDjump event, our faction is present here, data sent without errors  
   Just processed MissionCompleted event, mission is for or from our faction, data sent without errors  
+
+- Success: (BGS/INF data sent)  
+  The API received data, but isnt ready yet to process it, please wait until I built that functionality  
 
 - Fail: error code - short error message  
   could be many things, the error code and short error message will be a hint/clue  
