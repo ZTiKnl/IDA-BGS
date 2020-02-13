@@ -92,7 +92,7 @@ def plugin_app(parent):
 
 def journal_entry(cmdr, is_beta, system, station, entry, state):
     """
-    Evaluate data and transfer to https://ida-bgs.ztik.nl/api/input-api
+    Evaluate data and transfer to https://ida-bgs.ztik.nl/api/input
     """
     if entry['event'] == 'FSDJump':
         # We arrived at a new system!
@@ -110,7 +110,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         entry['FuelUsed'] = ''
 
         this.status['text'] = "Sending BGS data..."
-        url = "https://ida-bgs.ztik.nl/api/input-api"
+        url = "https://ida-bgs.ztik.nl/api/input"
         r = requests.post(url, json=entry)
         if r.status_code == 200:
             sys.stderr.write("Status: 200\n")
@@ -152,7 +152,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
             entry['MaterialsReward'] = ''
 
             this.status['text'] = "Sending INF data..."
-            url = "https://ida-bgs.ztik.nl/api/input-api"
+            url = "https://ida-bgs.ztik.nl/api/input"
             r = requests.post(url, json=entry)
             if r.status_code == 200:
                 sys.stderr.write("Status: 200\n")
