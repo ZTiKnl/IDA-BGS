@@ -52,6 +52,7 @@ There is no license on this code, feel free to use it as you see fit.
 Patches are always welcome.  
 
 ## Thanks
-- devnull & Optimus Stan for helping test the plugin  
+- Everybody who helped test the EDMC Plugin (devnull, Optimus Stan)  
 - HammerPiano, wouldnt have gotten the plugin working so fast without your advice  
+- [EliteBGS Tick Bot](https://EliteBGS.app)  
 - Everyone at EDCD: Community Developers Discord channel  
