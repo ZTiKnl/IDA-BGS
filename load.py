@@ -119,7 +119,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         else:
             if r.status_code == 201:
                 sys.stderr.write("Status: 201\n")
-                this.status['text'] = "Success: BGS data not applicable"
+                this.status['text'] = "Success: BGS data irrelevant"
                 t = threading.Timer(5.0, clearstatus)
             else:
                 if r.status_code == 202:
@@ -161,7 +161,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
             else:
                 if r.status_code == 201:
                     sys.stderr.write("Status: 201\n")
-                    this.status['text'] = "Success: INF data not applicable"
+                    this.status['text'] = "Success: INF data irrelevant"
                     t = threading.Timer(5.0, clearstatus)
                 else:
                     if r.status_code == 202:
