@@ -48,7 +48,6 @@ One more change will be required for the webapi, which does the filtering of sys
 
 ## Disclaimer
 This plugin is still under construction, ~~bugs~~ new features WILL appear unexpectedly.  
-There is no license on this code, feel free to use it as you see fit.  
 Patches are always welcome.  
 
 ## Thanks
