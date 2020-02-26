@@ -7,7 +7,7 @@ Version 0.40
 ## What it does:  
 Whenever a user jumps from one system to another, upon landing in the destination system, an event is created in the ED journal file.  
 This plugin reads this event (FSDjump), and ONLY this event, gathers system/faction data, and pushes JSON formatted data to the [IDA-BGS API](https://github.com/ZTiKnl/IDA-BGS-API).  
-Data sent to the API can be displayed by the [IDA-BGS FrontEnd website](https://github.com/ZTiKnl/IDA-BGS-FrontEnd)  
+Data sent to the API can be requested by the [IDA-BGS FrontEnd website](https://github.com/ZTiKnl/IDA-BGS-FrontEnd) or the [IDA-BGS Bot](https://github.com/ZTiKnl/IDA-BGS-Bot)  
 
 ## What else can it do:  
 Whenever a user completes a mission, an event is created in the ED journal file.  
