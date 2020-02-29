@@ -30,8 +30,10 @@ def plugin_prefs(parent, cmdr, is_beta):
 
     frame = nb.Frame(parent)
 
-    plugin_label = nb.Label(frame, text="IDA-BGS EDMC plugin v0.40")
-    plugin_label.grid(padx=10, row=0, column=0, columnspan=2, sticky=tk.W)
+    plugin_label = nb.Label(frame, text="IDA-BGS EDMC plugin v0.41")
+    plugin_label.grid(padx=10, row=0, column=0, sticky=tk.W)
+
+    HyperlinkLabel(frame, text='Visit website', background=nb.Label().cget('background'), url='https://github.com/ZTiKnl/IDA-BGS', underline=True).grid(padx=10, row=0, column=1, sticky=tk.W)
 
     empty_label = nb.Label(frame, text="")
     empty_label.grid(padx=10, row=1, column=0, columnspan=2, sticky=tk.W)
