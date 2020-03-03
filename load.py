@@ -2,25 +2,31 @@ import sys
 import json
 import requests
 import threading
-import Tkinter as tk
+try:
+    import Tkinter as tk # this is for python2
+except:
+    import tkinter as tk # this is for python3
 from ttkHyperlinkLabel import HyperlinkLabel
 import myNotebook as nb
 from config import config
 
 this = sys.modules[__name__]
 
+def plugin_start3(plugin_dir):
+    return plugin_start(plugin_dir)
+
 def plugin_start(plugin_dir):
     """
     Load this plugin into EDMC
     """
-    print "IDA-BGS loaded! My plugin folder is {}".format(plugin_dir.encode("utf-8"))
+    print("IDA-BGS loaded! My plugin folder is " + format(plugin_dir))
     return "IDA-BGS"
 
 def plugin_stop():
     """
     EDMC is closing
     """
-    print "Closing down"
+    print("Closing down")
 
 def plugin_prefs(parent, cmdr, is_beta):
     """
@@ -31,7 +37,7 @@ def plugin_prefs(parent, cmdr, is_beta):
 
     frame = nb.Frame(parent)
 
-    plugin_label = nb.Label(frame, text="IDA-BGS EDMC plugin v0.42")
+    plugin_label = nb.Label(frame, text="IDA-BGS EDMC plugin v0.50")
     plugin_label.grid(padx=10, row=0, column=0, sticky=tk.W)
 
     HyperlinkLabel(frame, text='Visit website', background=nb.Label().cget('background'), url='https://github.com/ZTiKnl/IDA-BGS', underline=True).grid(padx=10, row=0, column=1, sticky=tk.W)
@@ -99,7 +105,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
     """
     if entry['event'] == 'FSDJump':
         # We arrived at a new system!
-	sys.stderr.write("Arrived at {}, sending data to server\n".format(entry['StarSystem']))
+        sys.stderr.write("Arrived at {}, sending data to server\n".format(entry['StarSystem']))
         this.apikey = tk.StringVar(value=config.get("APIkey"))
 
         entry['key'] = this.apikey.get()
