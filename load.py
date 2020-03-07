@@ -37,7 +37,7 @@ def plugin_prefs(parent, cmdr, is_beta):
 
     frame = nb.Frame(parent)
 
-    plugin_label = nb.Label(frame, text="IDA-BGS EDMC plugin v0.50")
+    plugin_label = nb.Label(frame, text="IDA-BGS EDMC plugin v0.51")
     plugin_label.grid(padx=10, row=0, column=0, sticky=tk.W)
 
     HyperlinkLabel(frame, text='Visit website', background=nb.Label().cget('background'), url='https://github.com/ZTiKnl/IDA-BGS', underline=True).grid(padx=10, row=0, column=1, sticky=tk.W)
@@ -144,6 +144,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         t.start()
 
     elif entry['event'] == 'MissionCompleted':
+        this.approvedatatransfer = tk.IntVar(value=config.getint("ADT"))
         if this.approvedatatransfer.get() == 1:
             # We completed a mission!
             this.apikey = tk.StringVar(value=config.get("APIkey"))
