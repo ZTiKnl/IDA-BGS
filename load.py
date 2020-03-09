@@ -110,7 +110,6 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
 
         entry['key'] = this.apikey.get()
 
-        this.status['text'] = "Anonimizing BGS data..."
         entry['JumpDist'] = ''
         entry['FuelLevel'] = ''
         entry['BodyID'] = ''
@@ -128,7 +127,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         else:
             if r.status_code == 201:
                 sys.stderr.write("Status: 201\n")
-                this.status['text'] = "Success: BGS data irrelevant"
+                this.status['text'] = "Success: BGS data n/a"
                 t = threading.Timer(5.0, clearstatus)
             else:
                 if r.status_code == 202:
@@ -151,7 +150,6 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
 
             entry['key'] = this.apikey.get()
 
-            this.status['text'] = "Anonimizing INF data..."
             entry['Commodity'] = ''
             entry['Count'] = ''
             entry['Reward'] = ''
@@ -171,7 +169,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
             else:
                 if r.status_code == 201:
                     sys.stderr.write("Status: 201\n")
-                    this.status['text'] = "Success: INF data irrelevant"
+                    this.status['text'] = "Success: INF data n/a"
                     t = threading.Timer(5.0, clearstatus)
                 else:
                     if r.status_code == 202:
@@ -182,6 +180,143 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
                         data = json.loads(r.text)
                         sys.stderr.write("Status INF: " + str(r.status_code) + ": " + str(data['message']) + "\n")
                         sys.stderr.write("Error INF: " + str(data['error']) + "\n")
+                        this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
+                        t = threading.Timer(10.0, clearstatus)
+            t.start()
+
+    elif entry['event'] == 'MultiSellExplorationData':
+        this.approvedatatransfer = tk.IntVar(value=config.getint("ADT"))
+        if this.approvedatatransfer.get() == 1:
+            # We sold a page of exploration data!
+            this.apikey = tk.StringVar(value=config.get("APIkey"))
+
+            entry['key'] = this.apikey.get()
+            entry['system'] = system
+
+            this.status['text'] = "Sending EXPL data..."
+            url = "https://ida-bgs.ztik.nl/api/input"
+            r = requests.post(url, json=entry)
+            if r.status_code == 200:
+                sys.stderr.write("Status: 200\n")
+                this.status['text'] = "Success: EXPL data sent"
+                t = threading.Timer(5.0, clearstatus)
+            else:
+                if r.status_code == 201:
+                    sys.stderr.write("Status: 201\n")
+                    this.status['text'] = "Success: EXPL data n/a"
+                    t = threading.Timer(5.0, clearstatus)
+                else:
+                    if r.status_code == 202:
+                        sys.stderr.write("Status: 202\n")
+                        this.status['text'] = "Success: API not ready"
+                        t = threading.Timer(5.0, clearstatus)
+                    else:
+                        data = json.loads(r.text)
+                        sys.stderr.write("Status EXPL: " + str(r.status_code) + ": " + str(data['message']) + "\n")
+                        sys.stderr.write("Error EXPL: " + str(data['error']) + "\n")
+                        this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
+                        t = threading.Timer(10.0, clearstatus)
+            t.start()
+
+    elif entry['event'] == 'SellExplorationData':
+        this.approvedatatransfer = tk.IntVar(value=config.getint("ADT"))
+        if this.approvedatatransfer.get() == 1:
+            # We sold exploration data!
+            this.apikey = tk.StringVar(value=config.get("APIkey"))
+
+            entry['key'] = this.apikey.get()
+            entry['system'] = system
+
+            this.status['text'] = "Sending EXPL data..."
+            url = "https://ida-bgs.ztik.nl/api/input"
+            r = requests.post(url, json=entry)
+            if r.status_code == 200:
+                sys.stderr.write("Status: 200\n")
+                this.status['text'] = "Success: EXPL data sent"
+                t = threading.Timer(5.0, clearstatus)
+            else:
+                if r.status_code == 201:
+                    sys.stderr.write("Status: 201\n")
+                    this.status['text'] = "Success: EXPL data n/a"
+                    t = threading.Timer(5.0, clearstatus)
+                else:
+                    if r.status_code == 202:
+                        sys.stderr.write("Status: 202\n")
+                        this.status['text'] = "Success: API not ready"
+                        t = threading.Timer(5.0, clearstatus)
+                    else:
+                        data = json.loads(r.text)
+                        sys.stderr.write("Status EXPL: " + str(r.status_code) + ": " + str(data['message']) + "\n")
+                        sys.stderr.write("Error EXPL: " + str(data['error']) + "\n")
+                        this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
+                        t = threading.Timer(10.0, clearstatus)
+            t.start()
+
+    elif entry['event'] == 'RedeemVoucher':
+        this.approvedatatransfer = tk.IntVar(value=config.getint("ADT"))
+        if this.approvedatatransfer.get() == 1:
+            # We sold exploration data!
+            this.apikey = tk.StringVar(value=config.get("APIkey"))
+
+            entry['key'] = this.apikey.get()
+            entry['system'] = system
+
+            this.status['text'] = "Sending BNT data..."
+            url = "https://ida-bgs.ztik.nl/api/input"
+            r = requests.post(url, json=entry)
+            if r.status_code == 200:
+                sys.stderr.write("Status: 200\n")
+                this.status['text'] = "Success: BB data sent"
+                t = threading.Timer(5.0, clearstatus)
+            else:
+                if r.status_code == 201:
+                    sys.stderr.write("Status: 201\n")
+                    this.status['text'] = "Success: BB data n/a"
+                    t = threading.Timer(5.0, clearstatus)
+                else:
+                    if r.status_code == 202:
+                        sys.stderr.write("Status: 202\n")
+                        this.status['text'] = "Success: API not ready"
+                        t = threading.Timer(5.0, clearstatus)
+                    else:
+                        data = json.loads(r.text)
+                        sys.stderr.write("Status BB: " + str(r.status_code) + ": " + str(data['message']) + "\n")
+                        sys.stderr.write("Error BB: " + str(data['error']) + "\n")
+                        this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
+                        t = threading.Timer(10.0, clearstatus)
+            t.start()
+
+    elif entry['event'] == 'MarketSell':
+        this.approvedatatransfer = tk.IntVar(value=config.getint("ADT"))
+        if this.approvedatatransfer.get() == 1:
+            # We sold exploration data!
+            this.apikey = tk.StringVar(value=config.get("APIkey"))
+
+            entry['key'] = this.apikey.get()
+            entry['system'] = system
+            entry['station'] = station
+
+            this.status['text'] = "Sending DLVR data..."
+            url = "https://ida-bgs.ztik.nl/api/input"
+            r = requests.post(url, json=entry)
+            if r.status_code == 200:
+                sys.stderr.write("Status: 200\n")
+                this.status['text'] = "Success: DLVR data sent"
+                t = threading.Timer(5.0, clearstatus)
+            else:
+                if r.status_code == 201:
+                    sys.stderr.write("Status: 201\n")
+                    this.status['text'] = "Success: DLVR data n/a"
+                    t = threading.Timer(5.0, clearstatus)
+                else:
+                    if r.status_code == 202:
+                        sys.stderr.write("Status: 202\n")
+                        this.status['text'] = "Success: API not ready"
+                        t = threading.Timer(5.0, clearstatus)
+                    else:
+                        data = json.loads(r.text)
+                        sys.stderr.write("Status DLVR: " + str(r.status_code) + ": " + str(data['message']) + "\n")
+                        sys.stderr.write("Error DLVR: " + str(data['error']) + "\n")
                         this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
                         t = threading.Timer(10.0, clearstatus)
             t.start()
