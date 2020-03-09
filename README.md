@@ -2,7 +2,7 @@
 An EDMC plugin that gathers system/faction data for specific systems and sends JSON formatted data to webapi
 
 ## Version  
-Version 0.51  
+Version 0.60  
 
 ## What it does:  
 Whenever a user jumps from one system to another, upon landing in the destination system, an event is created in the ED journal file.  
@@ -25,13 +25,13 @@ This is an *optional* feature, OPT-IN, which means users do not participate, unl
 There is an extra row in the main window of EDMC, labeled IDA-BGS.  
 This row can have 5 different values:  
 - Idle  
-  Not doing anything, waiting for FSDjump event to be triggered  
+  Not doing anything, waiting for any event to be triggered  
 
-- `Success: BGS/INF data irrelevant`  
+- `Success: BGS/INF/EXPL/BNT/DLVR data n/a`  
   Just processed FSDjump event, but destination system does not contain our faction  
   Just processed MissionCompleted event, but the target and recipient are not our faction  
 
-- `Success: BGS/INF data sent`  
+- `Success: BGS/INF/EXPL/BNT/DLVR data sent`  
   Just processed FSDjump event, our faction is present here, data sent without errors  
   Just processed MissionCompleted event, mission is for or from our faction, data sent without errors  
 
