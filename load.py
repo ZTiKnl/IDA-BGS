@@ -37,7 +37,7 @@ def plugin_prefs(parent, cmdr, is_beta):
 
     frame = nb.Frame(parent)
 
-    plugin_label = nb.Label(frame, text="IDA-BGS EDMC plugin v0.51")
+    plugin_label = nb.Label(frame, text="IDA-BGS EDMC plugin v0.60")
     plugin_label.grid(padx=10, row=0, column=0, sticky=tk.W)
 
     HyperlinkLabel(frame, text='Visit website', background=nb.Label().cget('background'), url='https://github.com/ZTiKnl/IDA-BGS', underline=True).grid(padx=10, row=0, column=1, sticky=tk.W)
@@ -52,34 +52,43 @@ def plugin_prefs(parent, cmdr, is_beta):
     apikey_entry.grid(padx=10, row=2, column=1, sticky=tk.EW)
 
     data_label = nb.Label(frame, text="Each data package is between 100KB - 500KB, only 1 data package is sent per FSD jump")
-    data_label.grid(padx=10, row=3, column=0, columnspan=2, sticky=tk.W)
-
-    empty_label = nb.Label(frame, text="")
-    empty_label.grid(padx=10, row=4, column=0, columnspan=2, sticky=tk.W)
-
-    optin_entry = nb.Checkbutton(frame, text=_('Send INF gains for IDA'), variable=this.approvedatatransfer)
-    optin_entry.grid(padx=10, row=5, column=0, columnspan=2, sticky=tk.EW)
-
-    data_label = nb.Label(frame, text="Each data package is between 20KB - 100KB, 1 data package is sent per INF gain")
-    data_label.grid(padx=10, row=6, column=0, columnspan=2, sticky=tk.W)
-
-    empty_label = nb.Label(frame, text="")
-    empty_label.grid(padx=10, row=7, column=0, columnspan=2, sticky=tk.W)
+    data_label.grid(padx=20, row=3, column=0, columnspan=2, sticky=tk.W)
 
     data_label = nb.Label(frame, text="The only data sent is BGS faction data along with basic system details and a timestamp")
-    data_label.grid(padx=10, row=8, column=0, columnspan=2, sticky=tk.W)
+    data_label.grid(padx=20, row=4, column=0, columnspan=2, sticky=tk.W)
 
     data_label = nb.Label(frame, text="It also sends data about systems where IDA does NOT have a presence, but this data is ignored by the API")
-    data_label.grid(padx=10, row=9, column=0, columnspan=2, sticky=tk.W)
+    data_label.grid(padx=20, row=5, column=0, columnspan=2, sticky=tk.W)
 
     empty_label = nb.Label(frame, text="")
-    empty_label.grid(padx=10, row=10, column=0, columnspan=2, sticky=tk.W)
+    empty_label.grid(padx=10, row=6, column=0, columnspan=2, sticky=tk.W)
 
-    anonymous_label = nb.Label(frame, text="All data is anonimized before being sent over a secure connection (SSL)")
-    anonymous_label.grid(padx=10, row=11, column=0, columnspan=2, sticky=tk.W)
+    optin_entry = nb.Checkbutton(frame, text=_('Send additional data'), variable=this.approvedatatransfer)
+    optin_entry.grid(padx=10, row=7, column=0, columnspan=2, sticky=tk.EW)
+
+    data_label = nb.Label(frame, text="Each data package is between 20KB - 100KB, 1 data package is sent per event")
+    data_label.grid(padx=20, row=8, column=0, columnspan=2, sticky=tk.W)
+
+    events_label = nb.Label(frame, text="Events that are processed:")
+    events_label.grid(padx=20, row=9, column=0, columnspan=2, sticky=tk.W)
+
+    events_label = nb.Label(frame, text="Mission Completed")
+    events_label.grid(padx=30, row=10, column=0, columnspan=2, sticky=tk.W)
+
+    events_label = nb.Label(frame, text="Sell Exploration Data")
+    events_label.grid(padx=30, row=11, column=0, columnspan=2, sticky=tk.W)
+
+    events_label = nb.Label(frame, text="Cash in Bounty Voucher")
+    events_label.grid(padx=30, row=12, column=0, columnspan=2, sticky=tk.W)
+
+    events_label = nb.Label(frame, text="Sell Cargo on Market")
+    events_label.grid(padx=30, row=13, column=0, columnspan=2, sticky=tk.W)
+
+    empty_label = nb.Label(frame, text="")
+    empty_label.grid(padx=10, row=14, column=0, columnspan=2, sticky=tk.W)
 
     thirdparty_label = nb.Label(frame, text="No data will be sold to third parties, and there are no tracking mechanisms trying to follow you")
-    thirdparty_label.grid(padx=10, row=12, column=0, columnspan=2, sticky=tk.W)
+    thirdparty_label.grid(padx=10, row=15, column=0, columnspan=2, sticky=tk.W)
 
     return frame
 
