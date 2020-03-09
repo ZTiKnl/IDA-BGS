@@ -10,8 +10,8 @@ This plugin reads this event (FSDjump), and ONLY this event, gathers system/fact
 Data sent to the API can be displayed by the [IDA-BGS FrontEnd website](https://github.com/ZTiKnl/IDA-BGS-FrontEnd)  
 
 ## What else can it do:  
-Whenever a user completes a mission, an event is created in the ED journal file.  
-If enabled, this plugin reads this event (MissionCompleted), and ONLY this event, gathers INF data, and pushes JSON formatted data to the [IDA-BGS API](https://github.com/ZTiKnl/IDA-BGS-API).  
+Whenever a user completes a mission, sells exploration data, cashes in a bounty or delivers cargo (market), an event is created in the ED journal file.  
+If enabled, this plugin reads these events, gathers related data, and pushes JSON formatted data to the [IDA-BGS API](https://github.com/ZTiKnl/IDA-BGS-API).  
 This is an *optional* feature, OPT-IN, which means users do not participate, unless they manually place a checkmark in the settings tab.  
 
 ## How to use:  
@@ -20,7 +20,7 @@ This is an *optional* feature, OPT-IN, which means users do not participate, unl
 2. Request API key on webinterface  
 3. Start up EDMC  
 4. Insert API key into plugin by going to File -> Settings, tab IDA-BGS, enter/paste the key, and hit OK  
-5. Optional: add checkmark to approve INF data packages  
+5. Optional: add checkmark to approve additional data packages  
 
 There is an extra row in the main window of EDMC, labeled IDA-BGS.  
 This row can have 5 different values:  
