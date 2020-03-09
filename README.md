@@ -24,7 +24,7 @@ This is an *optional* feature, OPT-IN, which means users do not participate, unl
 
 There is an extra row in the main window of EDMC, labeled IDA-BGS.  
 This row can have 5 different values:  
-- Idle  
+- `Idle`  
   Not doing anything, waiting for any event to be triggered  
 
 - `Success: BGS/INF/EXPL/BNT/DLVR data n/a`  
