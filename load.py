@@ -37,7 +37,7 @@ def plugin_prefs(parent, cmdr, is_beta):
 
     frame = nb.Frame(parent)
 
-    plugin_label = nb.Label(frame, text="IDA-BGS EDMC plugin v0.61")
+    plugin_label = nb.Label(frame, text="IDA-BGS EDMC plugin v0.62")
     plugin_label.grid(padx=10, row=0, column=0, sticky=tk.W)
 
     HyperlinkLabel(frame, text='Visit website', background=nb.Label().cget('background'), url='https://github.com/ZTiKnl/IDA-BGS', underline=True).grid(padx=10, row=0, column=1, sticky=tk.W)
@@ -150,6 +150,39 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
                     this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
                     t = threading.Timer(10.0, clearstatus)
         t.start()
+
+    if entry['event'] == 'Docked':
+        # We arrived at a new system!
+        sys.stderr.write("Arrived at {}, sending data to server\n".format(entry['StarSystem']))
+        this.apikey = tk.StringVar(value=config.get("APIkey"))
+
+        entry['key'] = this.apikey.get()
+
+        this.status['text'] = "Sending BGS data..."
+        url = "https://ida-bgs.ztik.nl/api/input"
+        r = requests.post(url, json=entry)
+        if r.status_code == 200:
+            sys.stderr.write("Status: 200\n")
+            this.status['text'] = "Success: BGS data sent"
+            t = threading.Timer(5.0, clearstatus)
+        else:
+            if r.status_code == 201:
+                sys.stderr.write("Status: 201\n")
+                this.status['text'] = "Success: BGS data n/a"
+                t = threading.Timer(5.0, clearstatus)
+            else:
+                if r.status_code == 202:
+                    sys.stderr.write("Status: 202\n")
+                    this.status['text'] = "Success: API not ready"
+                    t = threading.Timer(5.0, clearstatus)
+                else:
+                    data = json.loads(r.text)
+                    sys.stderr.write("Status BGS: " + str(r.status_code) + ": " + str(data['message']) + "\n")
+                    sys.stderr.write("Error BGS: " + str(data['error']) + "\n")
+                    this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
+                    t = threading.Timer(10.0, clearstatus)
+        t.start()
+
 
     elif entry['event'] == 'MissionCompleted':
         this.approvedatatransfer = tk.IntVar(value=config.getint("ADT"))
