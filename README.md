@@ -2,7 +2,7 @@
 An EDMC plugin that gathers system/faction data for specific systems and sends JSON formatted data to webapi
 
 ## Version  
-Version 0.62  
+Version 0.64  
 
 ## What it does:  
 Whenever a user jumps from one system to another, upon landing in the destination system, an event is created in the ED journal file.  
