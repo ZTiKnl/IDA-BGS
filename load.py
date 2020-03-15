@@ -37,7 +37,7 @@ def plugin_prefs(parent, cmdr, is_beta):
 
     frame = nb.Frame(parent)
 
-    plugin_label = nb.Label(frame, text="IDA-BGS EDMC plugin v0.62")
+    plugin_label = nb.Label(frame, text="IDA-BGS EDMC plugin v0.64")
     plugin_label.grid(padx=10, row=0, column=0, sticky=tk.W)
 
     HyperlinkLabel(frame, text='Visit website', background=nb.Label().cget('background'), url='https://github.com/ZTiKnl/IDA-BGS', underline=True).grid(padx=10, row=0, column=1, sticky=tk.W)
@@ -104,7 +104,7 @@ def plugin_app(parent):
     Create a pair of TK widgets for the EDMC main window
     """
     label = tk.Label(parent, text="IDA BGS:")
-    this.status = tk.Label(parent, text="Idle")
+    this.status = tk.Label(parent, text="Idle", anchor="w")
 
     return (label, this.status)
 
@@ -201,17 +201,17 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
             entry['CommodityReward'] = ''
             entry['MaterialsReward'] = ''
 
-            this.status['text'] = "Sending INF data..."
+            this.status['text'] = "Sending MSSN data..."
             url = "https://ida-bgs.ztik.nl/api/input"
             r = requests.post(url, json=entry)
             if r.status_code == 200:
                 sys.stderr.write("Status: 200\n")
-                this.status['text'] = "Success: INF data sent"
+                this.status['text'] = "Success: MSSN data sent"
                 t = threading.Timer(5.0, clearstatus)
             else:
                 if r.status_code == 201:
                     sys.stderr.write("Status: 201\n")
-                    this.status['text'] = "Success: INF data n/a"
+                    this.status['text'] = "Success: MSSN data n/a"
                     t = threading.Timer(5.0, clearstatus)
                 else:
                     if r.status_code == 202:
@@ -220,8 +220,8 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
                         t = threading.Timer(5.0, clearstatus)
                     else:
                         data = json.loads(r.text)
-                        sys.stderr.write("Status INF: " + str(r.status_code) + ": " + str(data['message']) + "\n")
-                        sys.stderr.write("Error INF: " + str(data['error']) + "\n")
+                        sys.stderr.write("Status MSSN: " + str(r.status_code) + ": " + str(data['message']) + "\n")
+                        sys.stderr.write("Error MSSN: " + str(data['error']) + "\n")
                         this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
                         t = threading.Timer(10.0, clearstatus)
             t.start()
@@ -299,24 +299,28 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
     elif entry['event'] == 'RedeemVoucher':
         this.approvedatatransfer = tk.IntVar(value=config.getint("ADT"))
         if this.approvedatatransfer.get() == 1:
-            # We sold exploration data!
+            # We redeemed bond/bounty voucher!
             this.apikey = tk.StringVar(value=config.get("APIkey"))
 
             entry['key'] = this.apikey.get()
             entry['system'] = system
             entry['station'] = station
+            if entry[''] == 'CombatBond':
+              statustext = 'BOND';
+            elif entry[''] == 'bounty':
+              statustext = 'BNTY'
 
-            this.status['text'] = "Sending BNT data..."
+            this.status['text'] = "Sending " + statustext +" data..."
             url = "https://ida-bgs.ztik.nl/api/input"
             r = requests.post(url, json=entry)
             if r.status_code == 200:
                 sys.stderr.write("Status: 200\n")
-                this.status['text'] = "Success: BB data sent"
+                this.status['text'] = "Success: " + statustext + " data sent"
                 t = threading.Timer(5.0, clearstatus)
             else:
                 if r.status_code == 201:
                     sys.stderr.write("Status: 201\n")
-                    this.status['text'] = "Success: BB data n/a"
+                    this.status['text'] = "Success: " + statustext + " data n/a"
                     t = threading.Timer(5.0, clearstatus)
                 else:
                     if r.status_code == 202:
@@ -325,8 +329,8 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
                         t = threading.Timer(5.0, clearstatus)
                     else:
                         data = json.loads(r.text)
-                        sys.stderr.write("Status BB: " + str(r.status_code) + ": " + str(data['message']) + "\n")
-                        sys.stderr.write("Error BB: " + str(data['error']) + "\n")
+                        sys.stderr.write("Status " + statustext + ": " + str(r.status_code) + ": " + str(data['message']) + "\n")
+                        sys.stderr.write("Error " + statustext + ": " + str(data['error']) + "\n")
                         this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
                         t = threading.Timer(10.0, clearstatus)
             t.start()
@@ -334,24 +338,24 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
     elif entry['event'] == 'MarketSell':
         this.approvedatatransfer = tk.IntVar(value=config.getint("ADT"))
         if this.approvedatatransfer.get() == 1:
-            # We sold exploration data!
+            # We sold commodities!
             this.apikey = tk.StringVar(value=config.get("APIkey"))
 
             entry['key'] = this.apikey.get()
             entry['system'] = system
             entry['station'] = station
 
-            this.status['text'] = "Sending DLVR data..."
+            this.status['text'] = "Sending CRG data..."
             url = "https://ida-bgs.ztik.nl/api/input"
             r = requests.post(url, json=entry)
             if r.status_code == 200:
                 sys.stderr.write("Status: 200\n")
-                this.status['text'] = "Success: DLVR data sent"
+                this.status['text'] = "Success: CRG data sent"
                 t = threading.Timer(5.0, clearstatus)
             else:
                 if r.status_code == 201:
                     sys.stderr.write("Status: 201\n")
-                    this.status['text'] = "Success: DLVR data n/a"
+                    this.status['text'] = "Success: CRG data n/a"
                     t = threading.Timer(5.0, clearstatus)
                 else:
                     if r.status_code == 202:
@@ -360,8 +364,43 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
                         t = threading.Timer(5.0, clearstatus)
                     else:
                         data = json.loads(r.text)
-                        sys.stderr.write("Status DLVR: " + str(r.status_code) + ": " + str(data['message']) + "\n")
-                        sys.stderr.write("Error DLVR: " + str(data['error']) + "\n")
+                        sys.stderr.write("Status CRG: " + str(r.status_code) + ": " + str(data['message']) + "\n")
+                        sys.stderr.write("Error CRG: " + str(data['error']) + "\n")
+                        this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
+                        t = threading.Timer(10.0, clearstatus)
+            t.start()
+
+    elif entry['event'] == 'MarketBuy':
+        this.approvedatatransfer = tk.IntVar(value=config.getint("ADT"))
+        if this.approvedatatransfer.get() == 1:
+            # We bought commodities!
+            this.apikey = tk.StringVar(value=config.get("APIkey"))
+
+            entry['key'] = this.apikey.get()
+            entry['system'] = system
+            entry['station'] = station
+
+            this.status['text'] = "Sending CRG data..."
+            url = "https://ida-bgs.ztik.nl/api/input"
+            r = requests.post(url, json=entry)
+            if r.status_code == 200:
+                sys.stderr.write("Status: 200\n")
+                this.status['text'] = "Success: CRG data sent"
+                t = threading.Timer(5.0, clearstatus)
+            else:
+                if r.status_code == 201:
+                    sys.stderr.write("Status: 201\n")
+                    this.status['text'] = "Success: CRG data n/a"
+                    t = threading.Timer(5.0, clearstatus)
+                else:
+                    if r.status_code == 202:
+                        sys.stderr.write("Status: 202\n")
+                        this.status['text'] = "Success: API not ready"
+                        t = threading.Timer(5.0, clearstatus)
+                    else:
+                        data = json.loads(r.text)
+                        sys.stderr.write("Status CRG: " + str(r.status_code) + ": " + str(data['message']) + "\n")
+                        sys.stderr.write("Error CRG: " + str(data['error']) + "\n")
                         this.status['text'] = "Fail: " + str(r.status_code) + ": " + str(data['message'])
                         t = threading.Timer(10.0, clearstatus)
             t.start()
