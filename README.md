@@ -2,12 +2,13 @@
 An EDMC plugin that gathers system/faction data for specific systems and sends JSON formatted data to webapi
 
 ## Version  
-Version 0.65  
+Version 0.66  
 
 ## What it does:  
 Whenever a user jumps from one system to another, upon landing in the destination system, an event is created in the ED journal file.  
-This plugin reads this event (FSDjump), and ONLY this event, gathers system/faction data, and pushes JSON formatted data to the [IDA-BGS API](https://github.com/ZTiKnl/IDA-BGS-API).  
-Data sent to the API can be displayed by the [IDA-BGS FrontEnd website](https://github.com/ZTiKnl/IDA-BGS-FrontEnd)  
+Whenever a user docks at a station, another event is created in the ED journal file.  
+This plugin reads these events (FSDjump and Docked), and ONLY these events, gathers system/station/faction data, and pushes JSON formatted data to the [IDA-BGS API](https://github.com/ZTiKnl/IDA-BGS-API).  
+Data sent to the API can be reported in a Discord channel by the [IDA-BGS Bot](https://github.com/ZTiKnl/IDA-BGS-Bot)  
 
 ## What else can it do:  
 Whenever a user completes a mission, sells exploration data, cashes in a bounty or delivers cargo (market), an event is created in the ED journal file.  
